@@ -1,0 +1,3 @@
+module ContactsModule
+
+ContactsView 1.0 ContactsView.qml
