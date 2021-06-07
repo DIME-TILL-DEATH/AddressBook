@@ -30,6 +30,9 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES +=
 
 INCLUDEPATH += $$PWD/include
+INCLUDEPATH += $$PWD/../shared/include
+
+LIBS += -L$$PWD/../shared/lib -lDBManager
 
 HEADERS += \
     include/contact.h \
