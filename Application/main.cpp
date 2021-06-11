@@ -1,6 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include "contactmodel.h"
+#include "clientmanager.h"
+#include "contactsmodel.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -13,6 +15,8 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
+    net::ConnectionArgumentsParser parser{*QCoreApplication::instance()};
+    ClientManager::instance().setConnectionSettings(parser);
     ContactsModel::registerMe("Contacts");
 
     engine.addImportPath(":/qml");  // добавляем базовую директорию в пути импорта

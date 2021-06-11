@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <memory>
-#include "contact.h"
+#include <QVariant>
 
 namespace db {
 class Processor;
@@ -12,7 +12,7 @@ class Processor;
 class ContactsReader
 {
 public:
-    std::pair<bool, std::vector<Contact>> requestContactsBrowse();
+    std::pair<bool, std::vector<QVariant>> requestContactsBrowse();
 
     ContactsReader();
     ~ContactsReader();

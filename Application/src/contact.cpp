@@ -1,9 +1,10 @@
 #include "contact.h"
 
-Contact::Contact(QString firstName, QString surname, QString phone)
+Contact::Contact(QString firstName, QString surname, QString phone, db::DBIndex id)
     : m_phone(std::move(phone)),
       m_firstName(std::move(firstName)),
-      m_surname(std::move(surname))
+      m_surname(std::move(surname)),
+      m_id {id}
 {
 
 }

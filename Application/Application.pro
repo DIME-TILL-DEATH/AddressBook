@@ -7,9 +7,10 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        src/clientmanager.cpp \
         src/contact.cpp \
-        src/contactmodel.cpp \
-        src/contactsreader.cpp \
+        src/contactsmodel.cpp \
+        src/contactsworker.cpp \
         main.cpp
 
 RESOURCES += qml.qrc
@@ -32,9 +33,11 @@ DISTFILES +=
 INCLUDEPATH += $$PWD/include
 INCLUDEPATH += $$PWD/../shared/include
 
-LIBS += -L$$PWD/../shared/lib -lDBManager
+LIBS += -L$$PWD/../shared/lib -lNetworkLib
 
 HEADERS += \
+    include/clientmanager.h \
     include/contact.h \
-    include/contactmodel.h \
-    include/contactsreader.h
+    include/contactsmodel.h \
+    include/contactsworker.h
+

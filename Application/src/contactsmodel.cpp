@@ -1,10 +1,14 @@
-#include "contactmodel.h"
+#include "contactsmodel.h"
 #include <QQmlEngine>
 #include <QDebug>
 
 ContactsModel::ContactsModel()
 {
+    connect(&m_worker, &ContactsWorker::browsingContactsCompleted,
+            this, &ContactsModel::onContactListDownloaded);
+
     const bool updateResult(updateContacts());
+
     if(!updateResult)
     {
         qWarning() << "Update conacts failed!";
@@ -59,18 +63,19 @@ QVariant ContactsModel::data(const QModelIndex &index, int role) const
     }
 }
 
+void ContactsModel::onContactListDownloaded(const std::vector<Contact> &data)
+{
+    emit beginResetModel();
+    m_contacts = data;
+    emit endResetModel();
+
+    qDebug() << "Contact list downloaded!" << rowCount() <<" contacts avaliable!";
+}
+
 bool ContactsModel::updateContacts()
 {
-    bool requestResult(false);
+    bool requestResult {m_worker.requestBrowseContacts()};
 
-    std::vector<Contact> contactsResult;
-    std::tie(requestResult, contactsResult) = m_contactsReader.requestContactsBrowse();
-
-    if(requestResult)
-    {
-        m_contacts.swap(contactsResult);
-        emit dataChanged(createIndex(0, 0), createIndex(m_contacts.size(), 0));
-    }
 
     return requestResult;
 }

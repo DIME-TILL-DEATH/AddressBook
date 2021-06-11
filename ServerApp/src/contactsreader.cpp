@@ -20,19 +20,17 @@ ContactsReader::~ContactsReader()
 
 }
 
-std::vector<Contact> transform(const std::vector<db::DBEntry>& source)
+std::vector<QVariant> transform(const std::vector<db::DBEntry>& source)
 {
-    std::vector<Contact> target;
+    std::vector<QVariant> target;
     std::transform(source.begin(), source.end(), std::back_inserter(target),
                     [](const db::DBEntry& entry){
-                    return Contact {entry[1].toString(),
-                                    entry[2].toString(),
-                                    entry[3].toString()};
-                                                });
+                    return QVariant::fromValue(entry);
+                    });
     return target;
 }
 
-std::pair<bool, std::vector<Contact> > ContactsReader::requestContactsBrowse()
+std::pair<bool, std::vector<QVariant> > ContactsReader::requestContactsBrowse()
 {
     db::DBResult result;
     std::vector<db::DBEntry> entries;
